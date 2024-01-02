@@ -15,3 +15,13 @@ stages:
     - scripts/data_processing/prepared.py
     outs:
     - data/prepared
+  model-training:
+    cmd: python3 scripts/model_scripts/model_training.py
+    deps:
+    - data/prepared/test.csv
+    - data/prepared/train.csv
+    - scripts/model_scripts/model_training.py
+    params:
+    - estimator.n_estimators
+    outs:
+    - model.pkl
