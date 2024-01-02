@@ -25,3 +25,12 @@ stages:
     - estimator.n_estimators
     outs:
     - model.pkl
+  evaluate:
+    cmd: python3 scripts/model_scripts/evaluate.py
+    deps:
+    - data/prepared/test.csv
+    - model.pkl
+    - scripts/model_scripts/evaluate.py
+    metrics:
+    - evaluate/score.json:
+        cache: false
