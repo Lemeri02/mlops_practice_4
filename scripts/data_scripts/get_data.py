@@ -9,5 +9,5 @@ train_df = pd.read_csv(url_train)
 test_df = pd.read_csv(url_test)
 
 
-train_df.to_csv('../../data/raw/train.csv', sep=',', index = False)
-test_df.to_csv('../../data/raw/test.csv', sep=',', index = False)
+train_df.to_csv('~/mlops_practice_2/data/raw/train.csv', sep=',', index = False)
+test_df.to_csv('~/mlops_practice_2/data/raw/test.csv', sep=',', index = False)
