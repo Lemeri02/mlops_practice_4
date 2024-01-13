@@ -20,5 +20,5 @@ n_estimators = params["n_estimators"]
 cbc = CatBoostClassifier(verbose=0, n_estimators=n_estimators)
 cbc.fit(X, y)
 
-with open("./model.pkl", "wb") as f:
+with open("./data/model.pkl", "wb") as f:
     pickle.dump(cbc, f)
