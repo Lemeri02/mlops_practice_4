@@ -1,0 +1,7 @@
+; [dev]
+; mlserver ansible_host=192.168.124.229 ansible_port=22 ansible_user=deploy ansible_ssh_private_key_file=~/.ssh/id_rsa
+; dataserver ansible_host=192.168.124.75 ansible_port=22 ansible_user=deploy ansible_ssh_private_key_file=~/.ssh/id_rsa
+; [test]
+; stageserver ansible_host=192.168.124.130 ansible_port=22 ansible_user=deploy ansible_ssh_private_key_file=~/.ssh/id_rsa
+[prod]
+prodserver ansible_host=192.168.124.131 ansible_port=22 ansible_user=deploy ansible_ssh_private_key_file=~/.ssh/id_rsa
