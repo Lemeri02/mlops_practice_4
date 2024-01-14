@@ -19,6 +19,8 @@
         executable: /bin/bash
 
     - name: Install requirements.txt
+      become: yes
+      become_user: deploy
       ansible.builtin.pip:
         requirements: /home/deploy/mlops_practice_4/requirements.txt
         virtualenv: /home/deploy/mlops_practice_4/venv
