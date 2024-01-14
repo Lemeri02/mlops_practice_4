@@ -41,10 +41,10 @@
 
     - name: Get data
       become: yes
-      become_user: deploy
+      become_user: root
       script: /home/deploy/mlops_practice_4/scripts/data_scripts/get_data.py
       args:
-        executable: /home/deploy/mlops_practice_4/venv/bin/python3.10
+        executable: /home/deploy/mlops_practice_4/venv/bin/python
 
     - name: Run DVC repro
       ansible.builtin.shell: 
