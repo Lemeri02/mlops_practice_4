@@ -1,3 +1,5 @@
+#!/home/deploy/mlops_practice_4/venv/bin/python3
+
 import pandas as pd
 
 
