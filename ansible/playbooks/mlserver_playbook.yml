@@ -23,7 +23,8 @@
         executable: /bin/bash
 
     - name: Get data
-      become_user: deploy
+      become: yes
+      become_user: root
       script: /home/deploy/mlops_practice_4/scripts/data_scripts/get_data.py
       args:
         executable: /home/deploy/mlops_practice_4/venv/bin/python
