@@ -2,6 +2,7 @@
 - name: Prepare ML Server
   hosts: mlserver
   become: yes
+  become_user: deploy
   tasks:
     - name: ping
       shell: pwd >> pwd2.txt
@@ -12,7 +13,23 @@
         accept_hostkey: true
         key_file: /home/deploy/.ssh/id_ed25519
 
+    - name: create venv
+      ansible.builtin.shell: python3 -m venv /home/deploy/mlops_practice_4/venv
+      args:
+        executable: /bin/bash
+
+    - name: Give insecure permissions to an existing file
+      become: yes
+      become_user: root
+      ansible.builtin.file:
+        path: /home/deploy/mlops_practice_4
+        owner: deploy
+        group: deploy
+        recurse: yes
+
     - name: Install requirements.txt
+      become: yes
+      become_user: deploy
       ansible.builtin.pip:
         requirements: /home/deploy/mlops_practice_4/requirements.txt
         virtualenv: /home/deploy/mlops_practice_4/venv
@@ -24,14 +41,14 @@
 
     - name: Get data
       become: yes
-      become_user: root
+      become_user: deploy
       script: /home/deploy/mlops_practice_4/scripts/data_scripts/get_data.py
       args:
-        executable: /home/deploy/mlops_practice_4/venv/bin/python
+        executable: /home/deploy/mlops_practice_4/venv/bin/python3.10
 
     - name: Run DVC repro
-      command: dvc repro
-      args:
+      ansible.builtin.shell: 
+        cmd: dvc repro
         chdir: /home/deploy/mlops_practice_4
 
   vars:
