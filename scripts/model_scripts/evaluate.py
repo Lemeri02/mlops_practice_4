@@ -6,7 +6,7 @@ from catboost import CatBoostClassifier
 from sklearn import metrics
 
 
-cbc = pickle.load(open('./model.pkl', 'rb')) 
+cbc = pickle.load(open('./data/model.pkl', 'rb')) 
 
 test_df = pd.read_csv('data/prepared/test.csv', sep=',')
 
