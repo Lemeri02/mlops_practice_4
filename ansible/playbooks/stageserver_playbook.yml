@@ -2,6 +2,7 @@
 - name: Prepare stage server
   hosts: stageserver
   become: yes
+  become_user: deploy
   tasks:
     - name: ping
       shell: pwd >> pwd2.txt
@@ -23,7 +24,7 @@
         virtualenv: /home/deploy/mlops_practice_4/venv
 
     - name: Install dvc ssh
-      become_user: deploy
+      # become_user: deploy
       ansible.builtin.shell: pip install dvc[ssh]
       args:
         executable: /bin/bash
@@ -34,24 +35,28 @@
         executable: /bin/bash
 
     - name: Set DVC password
-      become: true
-      become_user: root
+      # become: true
+      # become_user: root
       command: dvc remote modify ssh-storage --local password {{ ansible_become_pass }}
       args:
         chdir: /home/deploy/mlops_practice_4
 
     - name: Run DVC pull
-      become: true
-      become_user: root
+      # become: true
+      # become_user: root
       command: dvc pull
       args:
         chdir: /home/deploy/mlops_practice_4
 
+    # - name: Run tests
+    #   become_user: deploy
+    #   script: /home/deploy/mlops_practice_4/scripts/tests/test.py
+    #   args:
+    #     executable: /home/deploy/mlops_practice_4/venv/bin/python
     - name: Run tests
-      become_user: deploy
-      script: /home/deploy/mlops_practice_4/scripts/tests/test.py
+      command: "python3 test.py"
       args:
-        executable: /home/deploy/mlops_practice_4/venv/bin/python
+        chdir: /home/deploy/mlops_practice_4/scripts/tests
 
   vars:
     ansible_ssh_pass: "{{ lookup('env', 'DEPLOY_PASSWORD') }}"
