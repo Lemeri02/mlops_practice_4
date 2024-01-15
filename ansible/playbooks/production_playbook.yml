@@ -1,6 +1,6 @@
 ---
-- name: Prepare stage server
-  hosts: stageserver
+- name: Prepare Prod server
+  hosts: prodserver
   become: yes
   become_user: deploy
   tasks:
@@ -28,18 +28,18 @@
         virtualenv: /home/deploy/mlops_practice_4/venv
         chdir: /home/deploy/mlops_practice_4
 
-    - name: Install dvc ssh
-      ansible.builtin.shell: pip install dvc[ssh]
-      args:
-        executable: /bin/bash
-
     - name: Run venv
       ansible.builtin.shell: source /home/deploy/mlops_practice_4/venv/bin/activate
       args:
         executable: /bin/bash
 
+    - name: Install dvc ssh
+      ansible.builtin.shell: pip install dvc[ssh]
+      args:
+        executable: /bin/bash
+
     - name: Set DVC password
-      command: dvc remote modify ssh-storage --local password {{ ansible_become_pass }}
+      command: dvc remote modify ssh-storage password {{ ansible_become_pass }}
       args:
         chdir: /home/deploy/mlops_practice_4
 
@@ -50,8 +50,8 @@
 
     - name: Run tests
       ansible.builtin.shell: 
-        cmd: /home/deploy/mlops_practice_4/venv/bin/python3 -m pytest
-        chdir: /home/deploy/mlops_practice_4/scripts/tests
+        cmd: /home/deploy/mlops_practice_4/venv/bin/python3 flask run
+        chdir: /home/deploy/mlops_practice_4/scripts/production
         
   vars:
     ansible_ssh_pass: "{{ lookup('env', 'DEPLOY_PASSWORD') }}"

@@ -4,4 +4,4 @@ dataserver ansible_host=192.168.124.75 ansible_port=22 ansible_user=deploy ansib
 [test]
 stageserver ansible_host=192.168.124.236 ansible_port=22 ansible_user=deploy ansible_ssh_private_key_file=~/.ssh/id_rsa
 [prod]
-prodserver ansible_host=192.168.124.131 ansible_port=22 ansible_user=deploy ansible_ssh_private_key_file=~/.ssh/id_rsa
+prodserver ansible_host=192.168.124.197 ansible_port=22 ansible_user=deploy ansible_ssh_private_key_file=~/.ssh/id_rsa

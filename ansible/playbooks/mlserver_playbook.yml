@@ -6,6 +6,7 @@
   tasks:
     - name: ping
       shell: pwd >> pwd2.txt
+
     - name: Pull from Git
       ansible.builtin.git:
         repo: git@github.com:Lemeri02/mlops_practice_4.git
@@ -13,12 +14,12 @@
         accept_hostkey: true
         key_file: /home/deploy/.ssh/id_ed25519
 
-    - name: create venv
+    - name: Сreate venv
       ansible.builtin.shell: python3 -m venv /home/deploy/mlops_practice_4/venv
       args:
         executable: /bin/bash
 
-    - name: Give insecure permissions to an existing file
+    - name: Give permissions to an existing file
       become: yes
       become_user: root
       ansible.builtin.file:
@@ -27,7 +28,7 @@
         group: deploy
         recurse: yes
 
-    - name: Install requirements.txt
+    - name: Install requirements
       become: yes
       become_user: deploy
       ansible.builtin.pip:
@@ -39,12 +40,6 @@
       args:
         executable: /bin/bash
 
-    # - name: Get data
-    #   become: yes
-    #   become_user: root
-    #   script: /home/deploy/mlops_practice_4/scripts/data_scripts/get_data.py
-    #   args:
-    #     executable: /home/deploy/mlops_practice_4/venv/bin/python
     - name: Get data
       command: "python3 get_data.py"
       args:
