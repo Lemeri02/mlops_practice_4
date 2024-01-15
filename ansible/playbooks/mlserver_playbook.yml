@@ -53,37 +53,3 @@
   vars:
     ansible_ssh_pass: "{{ lookup('env', 'DEPLOY_PASSWORD') }}"
     ansible_become_pass: "{{ lookup('env', 'DEPLOY_PASSWORD') }}"
-
-
-
-
-
-      # shell: python3 /home/deploy/mlops_practice_4/scripts/data_scripts/get_data.py
-# - name: Download Dataset
-#   hosts: mlserver
-#   become: yes
-#     tasks:
-#     - name: download dataset
-#       shell: pwd >> pwd2.txt
-
-
-
-# ---
-# - name: Test PING
-#   hosts: all
-#   become: true
-#   tasks:
-#     - name: ping
-#       user:
-#         name: deploy
-#         password: 3480916
-#       # set_fact:
-#       #   provider:
-#       #     username: deploy
-#       #     password: 3480916
-#       #     auth_pass: "{{ ansible_become_pass }}"
-#     - name: Hello
-#       ios_command:
-#         # provider: "{{ provider }}"
-#         shell: pwd >> pwd.txt
-

@@ -1,0 +1,8 @@
+# Подготавливаем ML-server: происходит прогон МЛ-скрипта, обучение и сохранение файлов в удаленный сервер data-server
+ansible-playbook ./ansible/playbooks/mlserver_playbook.yml -i ./ansible/hosts
+
+# Подготавливаем Stage-server: На сервер подтягиваем с гита код, с Data server данные и файл модели model.pkl, прогоняем тест 
+ansible-playbook ./ansible/playbooks/stageserver_playbook.yml -i ./ansible/hosts
+
+# Подготавливаем Prod-server: На prod server подтягиваем код и запускаем Flask сервер
+ansible-playbook ./ansible/playbooks/production_playbook.yml -i ./ansible/hosts

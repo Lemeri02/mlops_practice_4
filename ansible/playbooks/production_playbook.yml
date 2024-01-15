@@ -53,10 +53,6 @@
         executable: pip3
         name: flask
         state: latest
-    # - name: Run tests
-    #   ansible.builtin.shell: 
-    #     cmd: /home/deploy/mlops_practice_4/venv/bin/python3 flask run
-    #     chdir: /home/deploy/mlops_practice_4/scripts/production
 
     - name: run flask app
       shell: nohup /home/deploy/mlops_practice_4/venv/bin/python3 /home/deploy/mlops_practice_4/scripts/production/app.py > log.txt 2>&1 &   
