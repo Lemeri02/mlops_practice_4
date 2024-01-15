@@ -40,6 +40,11 @@
       args:
         executable: /bin/bash
 
+    - name: Install dvc ssh
+      ansible.builtin.shell: pip install dvc[ssh]
+      args:
+        executable: /bin/bash
+
     - name: Get data
       command: "python3 get_data.py"
       args:
@@ -48,6 +53,11 @@
     - name: Run DVC repro
       ansible.builtin.shell: 
         cmd: dvc repro
+        chdir: /home/deploy/mlops_practice_4
+
+    - name: Run DVC push
+      ansible.builtin.shell: 
+        cmd: dvc push
         chdir: /home/deploy/mlops_practice_4
 
   vars:

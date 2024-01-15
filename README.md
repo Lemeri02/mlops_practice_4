@@ -11,11 +11,17 @@
 
 ## Инфраструктура
 Инфраструктура - виртуальные машины развернул в libvirt:
-1) Data-Server - храним датасеты (DVC)
-2) Admin-Server - Jenkins и Ansible - с помощью этого сервера управляем остальными
-3) ML-server - Обучение модели и загрузка датасета, модели в формате model.pkl в Data-Server
-4) Prod-Server - Продакшн - Загрузка кода из Github репозитория, Данных из Data-Server с помощью DVC и запуск Flask приложения
-5) Stage-Server - Загрузка кода из Github репозитория, Данных из Data-Server с помощью DVC и запуск теста с помощью pytest
+1) Data-server - храним датасеты (DVC)
+2) Admin-server - Jenkins и Ansible - с помощью этого сервера управляем остальными
+3) ML-server - Обучение модели и загрузка датасета, модели в формате model.pkl в Data-server
+4) Prod-server - Продакшн - Загрузка кода из Github репозитория, данных из Data-Server с помощью DVC и запуск Flask приложения
+5) Stage-Server - Загрузка кода из Github репозитория, данных из Data-Server с помощью DVC и запуск теста с помощью pytest
+
+Сначала в Jenkins запускается ansible playbook  
+    - mlserver_playbook.yml - скачивает репозиторий из github на ML-server, скачивает датасет из внешнего источника, прогоняет скрипт dvc repro, и пушит данные в Data-server
+    - stageserver_playbook.yml - скачивает репозиторий из github на Stage-server, устанавливает необходимые зависимости, скачивает данные из Data-server, прогоняет автотесты
+    - production_playbook.yml - скачивает репозиторий из github на Stage-server, устанавливает необходимые зависимости, скачивает данные из Data-server, запускает Flask-приложение
+
 
 ![](assets/2024-01-16_00-59.png)
 
