@@ -6,7 +6,7 @@ from sklearn import metrics
 from catboost import CatBoostClassifier
 
 
-df = pd.read_csv("/home/prod_srv/Horse/datasets/test.csv")
+df = pd.read_csv("/home/deploy/mlops_practice_4/data/prepared/test.csv")
 X = df.drop("outcome", axis = 1)
 y = df['outcome']
 
@@ -19,7 +19,7 @@ def hello():
 
 @app.route("/predict")
 def predict():
-	with open("/home/prod_srv/Horse/models/model.pkl", "rb") as fd:
+	with open("/home/deploy/mlops_practice_4/data/model.pkl", "rb") as fd:
 		clf = pickle.load(fd)
 	y_pred = clf.predict(X)
 	return(jsonify({"score": metrics.accuracy_score(y_pred, y)}))
