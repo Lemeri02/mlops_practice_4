@@ -14,9 +14,10 @@
         key_file: /home/deploy/.ssh/id_rsa
 
     - name: create venv
-      ansible.builtin.shell: python3 -m venv /home/deploy/mlops_practice_4/venv
+      ansible.builtin.shell: python3 -m venv venv
       args:
         executable: /bin/bash
+        chdir: /home/deploy/mlops_practice_4
 
     - name: Install requirements.txt
       become: yes
@@ -24,6 +25,7 @@
       ansible.builtin.pip:
         requirements: /home/deploy/mlops_practice_4/requirements.txt
         virtualenv: /home/deploy/mlops_practice_4/venv
+        chdir: /home/deploy/mlops_practice_4
 
     - name: Install dvc ssh
       # become_user: deploy
@@ -50,14 +52,11 @@
       args:
         chdir: /home/deploy/mlops_practice_4
 
-    # - name: Run tests
-    #   become_user: deploy
-    #   script: /home/deploy/mlops_practice_4/scripts/tests/test.py
-    #   args:
-    #     executable: /home/deploy/mlops_practice_4/venv/bin/python
     - name: Run tests
-      command: "python3 test.py"
-      args:
+      become: true
+      become_user: root
+      ansible.builtin.shell: 
+        cmd: /home/deploy/mlops_practice_4/venv/bin/python3 test.py
         chdir: /home/deploy/mlops_practice_4/scripts/tests
 
   vars:

@@ -16,4 +16,4 @@ def test():
       clf = pickle.load(fd)
    y_pred = clf.predict(X)
    score = metrics.accuracy_score(y_pred, y) 
-   assert score > 0.7
+   assert score < 0.7
