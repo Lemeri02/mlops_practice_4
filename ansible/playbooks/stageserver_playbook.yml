@@ -56,9 +56,9 @@
       become: true
       become_user: root
       ansible.builtin.shell: 
-        cmd: /home/deploy/mlops_practice_4/venv/bin/python3 test.py
+        cmd: /home/deploy/mlops_practice_4/venv/bin/python3 -m pytest
         chdir: /home/deploy/mlops_practice_4/scripts/tests
-
+        
   vars:
     ansible_ssh_pass: "{{ lookup('env', 'DEPLOY_PASSWORD') }}"
     ansible_become_pass: "{{ lookup('env', 'DEPLOY_PASSWORD') }}"
